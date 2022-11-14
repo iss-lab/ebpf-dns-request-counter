@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  influx:
+    container_name: influxdb
+    image: "influxdb:2.4.0"
+    ports: 
+      - "8086:8086"
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+    env_file:
+      - .env
+  grafana:
+    container_name: grafana
+    image: "grafana/grafana:8.2.6"
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influx
+
+volumes:
+  influxdb-data:
+  grafana-data:
